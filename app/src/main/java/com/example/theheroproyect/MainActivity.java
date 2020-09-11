@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putSerializable("Superheroes",superHeroes);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    finish();
                 } catch (JSONException e) {
                     System.out.println("Error "+e);
                     e.printStackTrace();
