@@ -21,6 +21,6 @@ public class SuperHeroe implements Serializable {
 
     @Override
     public String toString() {
-        return "SuperHeroe: "+nombre;
+        return "\nNombre del SuperHeroe: "+nombre + " AlterEgo: "+alterego;
     }
 }

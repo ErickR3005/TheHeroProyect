@@ -24,30 +24,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
 
-EditText nombre;
+    EditText nombre;
+    ArrayList<SuperHeroe> superHeroes= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
-    public void buscarHeroe() {
+    public void buscarHeroe(View view) {
 
     nombre=findViewById(R.id.et_heroe);
     RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
-    HashMap hash=new HashMap();
-    SuperHeroe sup=new SuperHeroe("1","Batman","Bruce Wayne",hash);
-    superHeroes.add(sup);
+
     if (nombre.getText().toString().length()>=3){
         String url="https://www.superheroapi.com/api.php/3612163438818253/search/"+nombre.getText().toString();
-        System.out.println(url);
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("Bandera");
                 try {
                     JSONArray myJsonArray = response.getJSONArray("results");
                     for (int i=0;i<myJsonArray.length();i++){
@@ -74,11 +71,10 @@ EditText nombre;
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                System.out.println("No entra ni por Dios ni por la patria "+error);
             }
         });
         queue.add(request);
-
         System.out.println(superHeroes);
         Intent intent=new Intent(this,Resultados.class);
         Bundle bundle=new Bundle();
@@ -91,9 +87,6 @@ EditText nombre;
         Toast.makeText(this,"Se requiere una longitud minima de 3 letras para buscar",Toast.LENGTH_SHORT).show();
         nombre.setText("");
     }
-    }
-    public void busqueda(View view){
-        buscarHeroe();
     }
 
 }
