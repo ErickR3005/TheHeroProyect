@@ -24,16 +24,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-public ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
+ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
+RequestQueue queue;
+EditText nombre;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        queue= Volley.newRequestQueue(this);
     }
 
     public void buscarHeroe() {
-    RequestQueue queue= Volley.newRequestQueue(this);
-    EditText nombre=findViewById(R.id.et_heroe);
+    nombre=findViewById(R.id.et_heroe);
+
     if (nombre.getText().toString().length()>=3){
         String url="https://www.superheroapi.com/api.php/3612163438818253/search/"+nombre.getText().toString();
         System.out.println(url);
@@ -41,6 +45,7 @@ public ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    System.out.println("Bandera");
                     JSONArray myJsonArray = response.getJSONArray("results");
                     for (int i=0;i<myJsonArray.length();i++){
                         JSONObject myObject=myJsonArray.getJSONObject(i);
@@ -58,6 +63,7 @@ public ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
                         superHeroes.add(superHeroe);
                     }
                 } catch (JSONException e) {
+                    System.out.println("Error "+e);
                     e.printStackTrace();
                 }
 
@@ -67,10 +73,11 @@ public ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
             public void onErrorResponse(VolleyError error) {
 
             }
-        }
-        );
+        });
+
         queue.add(request);
 
+        System.out.println(superHeroes);
         Intent intent=new Intent(this,Resultados.class);
         Bundle bundle=new Bundle();
         bundle.putSerializable("Superheroes",superHeroes);
@@ -85,7 +92,6 @@ public ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
     }
     public void busqueda(View view){
         buscarHeroe();
-        System.out.println(superHeroes);
     }
 
 }

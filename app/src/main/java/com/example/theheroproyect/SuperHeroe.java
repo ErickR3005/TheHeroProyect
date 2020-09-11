@@ -19,4 +19,8 @@ public class SuperHeroe implements Serializable {
     public SuperHeroe() {
     }
 
+    @Override
+    public String toString() {
+        return "SuperHeroe: "+nombre;
+    }
 }
