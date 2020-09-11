@@ -3,22 +3,19 @@ package com.example.theheroproyect;
 import java.util.HashMap;
 
 public class SuperHeroe {
-    int id;
+    String id;
     String nombre;
     String alterego;
-    HashMap Habilidades=new HashMap();
+    HashMap habilidades=new HashMap();
 
-    public SuperHeroe(int id,String alterego,String nombre) {
+    public SuperHeroe(String id,String alterego,String nombre,HashMap habilidades) {
         this.id = id;
         this.alterego=alterego;
         this.nombre=nombre;
+        this.habilidades=habilidades;
     }
 
     public SuperHeroe() {
-    }
-
-    public void setHabilidades(HashMap habilidades) {
-        Habilidades = habilidades;
     }
 
 }
