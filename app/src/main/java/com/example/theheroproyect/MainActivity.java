@@ -36,6 +36,7 @@ public ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
     EditText nombre=findViewById(R.id.et_heroe);
     if (nombre.getText().toString().length()>=3){
         String url="https://www.superheroapi.com/api.php/3612163438818253/search/"+nombre.getText().toString();
+        System.out.println(url);
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -71,6 +72,9 @@ public ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
         queue.add(request);
 
         Intent intent=new Intent(this,Resultados.class);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("Superheroes",superHeroes);
+        intent.putExtras(bundle);
         startActivity(intent);
 
     }
@@ -81,6 +85,7 @@ public ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
     }
     public void busqueda(View view){
         buscarHeroe();
+        System.out.println(superHeroes);
     }
 
 }

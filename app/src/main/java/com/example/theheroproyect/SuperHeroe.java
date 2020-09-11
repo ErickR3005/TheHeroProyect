@@ -1,8 +1,9 @@
 package com.example.theheroproyect;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class SuperHeroe {
+public class SuperHeroe implements Serializable {
     String id;
     String nombre;
     String alterego;
