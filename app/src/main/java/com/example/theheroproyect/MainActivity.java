@@ -8,8 +8,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class MainActivity extends AppCompatActivity {
+public ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,10 +32,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buscarHeroe() {
+    RequestQueue queue= Volley.newRequestQueue(this);
     EditText nombre=findViewById(R.id.et_heroe);
     if (nombre.getText().toString().length()>=3){
-        String url=" https://www.superheroapi.com/api.php/3612163438818253/search/"+nombre.getText().toString();
-        System.out.println(url);
+        String url="https://www.superheroapi.com/api.php/3612163438818253/search/"+nombre.getText().toString();
+        JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray myJsonArray = response.getJSONArray("results");
+                    for (int i=0;i<myJsonArray.length();i++){
+                        JSONObject myObject=myJsonArray.getJSONObject(i);
+                        String id=myObject.getString("id");
+                        String alterego=myObject.getJSONObject("biography").getString("full-name");
+                        String nombre=myObject.getString("name");
+                        HashMap habilidades=new HashMap();
+                        habilidades.put("Inteligencia",myObject.getJSONObject("powerstats").getString("intelligence"));
+                        habilidades.put("Fuerza",myObject.getJSONObject("powerstats").getString("strength"));
+                        habilidades.put("Velocidad",myObject.getJSONObject("powerstats").getString("speed"));
+                        habilidades.put("Durabilidad",myObject.getJSONObject("powerstats").getString("durability"));
+                        habilidades.put("Poder",myObject.getJSONObject("powerstats").getString("power"));
+                        habilidades.put("Combate",myObject.getJSONObject("powerstats").getString("combat"));
+                        SuperHeroe superHeroe=new SuperHeroe(id,alterego,nombre,habilidades);
+                        superHeroes.add(superHeroe);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }
+        );
+        queue.add(request);
+
         Intent intent=new Intent(this,Resultados.class);
         startActivity(intent);
 
