@@ -2,6 +2,7 @@ package com.example.theheroproyect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,11 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
     EditText nombre;
     ArrayList<SuperHeroe> superHeroes= new ArrayList<>();
+    Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context=this;
     }
 
     public void buscarHeroe(View view) {
@@ -62,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
                         superHeroes.add(superHeroe);
                         System.out.println(superHeroe);
                     }
+                    Intent intent=new Intent(context,Resultados.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("Superheroes",superHeroes);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 } catch (JSONException e) {
                     System.out.println("Error "+e);
                     e.printStackTrace();
@@ -75,13 +84,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         queue.add(request);
-        System.out.println(superHeroes);
-        Intent intent=new Intent(this,Resultados.class);
-        Bundle bundle=new Bundle();
-        bundle.putSerializable("Superheroes",superHeroes);
-        intent.putExtras(bundle);
-        startActivity(intent);
-
     }
     else{
         Toast.makeText(this,"Se requiere una longitud minima de 3 letras para buscar",Toast.LENGTH_SHORT).show();
