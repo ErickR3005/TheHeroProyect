@@ -2,6 +2,7 @@ package com.example.theheroproyect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     if (nombre.getText().toString().length()>=3){
         String url=" https://www.superheroapi.com/api.php/3612163438818253/search/"+nombre.getText().toString();
         System.out.println(url);
+        Intent intent=new Intent(this,Resultados.class);
+        startActivity(intent);
+
     }
     else{
         Toast.makeText(this,"Se requiere una longitud minima de 3 letras para buscar",Toast.LENGTH_SHORT).show();
