@@ -5,18 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Resultados" >
+    tools:context=".Resultados">
 
-    <ScrollView
+
+    <TextView
+        android:id="@+id/tv_resultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="21dp"
+        android:text="Resultado: "
+        android:textSize="24sp" />
+
+    <ListView
+        android:id="@+id/ListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="Siguiente">
+        tools:layout_editor_absoluteX="-192dp"
+        tools:layout_editor_absoluteY="78dp" />
 
 
-        <ListView
-            android:id="@+id/ListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </ScrollView>
 </LinearLayout>

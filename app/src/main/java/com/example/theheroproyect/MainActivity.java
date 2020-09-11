@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     public void buscarHeroe(View view) {
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         habilidades.put("Combate",myObject.getJSONObject("powerstats").getString("combat"));
                         SuperHeroe superHeroe=new SuperHeroe(id,alterego,nombre,habilidades);
                         superHeroes.add(superHeroe);
+                        System.out.println(superHeroe);
                     }
                 } catch (JSONException e) {
                     System.out.println("Error "+e);
