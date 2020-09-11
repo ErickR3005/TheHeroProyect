@@ -2,7 +2,9 @@ package com.example.theheroproyect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -44,5 +46,9 @@ public class PerfilHeroe extends AppCompatActivity {
         BarDataSet barDataSet=new BarDataSet(datos,"Estadisticas");
         BarData barData=new BarData(barDataSet);
         barChart.setData(barData);
+    }
+    public void Volver(View v){
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 }

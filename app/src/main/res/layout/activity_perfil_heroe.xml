@@ -11,24 +11,33 @@
         android:id="@+id/tv_sup"
         android:layout_width="337dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="255dp"
+        android:layout_marginTop="21dp"
         android:text="Nombre de Heroe: " />
 
     <TextView
         android:id="@+id/tv_nombre"
         android:layout_width="334dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="255dp"
         android:text="Nombre Completo: " />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1= Inteligencia\n2= Fuerza\n3= Durabildiad\n4=  Velocidad\n5= Poder\n6= Combate" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/BarChart"
-        android:layout_width="290dp"
-        android:layout_height="290dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_gravity="center"
         android:layout_margin="21dp" />
+
+    <Button
+        android:id="@+id/btn_volver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Volver"
+        android:text="Volver" />
+
 </LinearLayout>

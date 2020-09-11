@@ -38,11 +38,13 @@ public class Resultados extends AppCompatActivity {
                 bundle.putSerializable("Superheroes",s.get(i));
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
             }
         });
     }
     public void Volver(View v){
         startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
     private void obtenerInfo(){
         Bundle objetoEnviado= getIntent().getExtras();
