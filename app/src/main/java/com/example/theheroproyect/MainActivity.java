@@ -25,27 +25,30 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 ArrayList<SuperHeroe> superHeroes = new ArrayList<>();
-RequestQueue queue;
+
 EditText nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        queue= Volley.newRequestQueue(this);
     }
 
     public void buscarHeroe() {
-    nombre=findViewById(R.id.et_heroe);
 
+    nombre=findViewById(R.id.et_heroe);
+    RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+    HashMap hash=new HashMap();
+    SuperHeroe sup=new SuperHeroe("1","Batman","Bruce Wayne",hash);
+    superHeroes.add(sup);
     if (nombre.getText().toString().length()>=3){
         String url="https://www.superheroapi.com/api.php/3612163438818253/search/"+nombre.getText().toString();
         System.out.println(url);
         JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                System.out.println("Bandera");
                 try {
-                    System.out.println("Bandera");
                     JSONArray myJsonArray = response.getJSONArray("results");
                     for (int i=0;i<myJsonArray.length();i++){
                         JSONObject myObject=myJsonArray.getJSONObject(i);
@@ -74,7 +77,6 @@ EditText nombre;
 
             }
         });
-
         queue.add(request);
 
         System.out.println(superHeroes);
